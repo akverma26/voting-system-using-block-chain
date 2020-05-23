@@ -1,0 +1,22 @@
+<table class="mine-block-result">
+    <tr class="table-header">
+        <td>Block ID</td>
+        <td>Previous Hash</td>
+        <td>Merkle Hash</td>
+        <td>Block Hash</td>
+        <td>Nonce</td>
+    </tr>
+    {% for r in result %}
+    <tr>
+        <td><a class="block-info-link" href="/block-info/?id={{r.block_id}}"> {{ r.block_id }} </a></td>
+        <td title="{{ r.prev_hash }}" style="color: rgb(78, 0, 151);">{{ r.prev_hash }}</td>
+        <td title="{{ r.merkle_hash }}" style="color: rgb(133, 0, 151);">{{ r.merkle_hash }}</td>
+        <td title="{{ r.this_hash }}" style="color: rgb(151, 0, 113);">{{ r.this_hash }}</td>
+        <td>{{ r.nonce }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="time-taken-info">
+    Total Time Taken: <span style="color: rgb(255, 0, 128); font-size: 20px;">{{ time_taken }}</span> secs
+</div>

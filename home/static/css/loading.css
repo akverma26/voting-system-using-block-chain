@@ -1,0 +1,57 @@
+.loading-div{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    color: rgba(0,0,0,0.5);
+    display: flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(rgb(255, 255, 255), rgb(245, 245, 245));
+    z-index: 7;
+}
+
+.loading-div > div:nth-child(2){
+    font-size: 29px;
+    font-family: centuryGothic;
+    font-variant: small-caps;
+    letter-spacing: 3px;
+    animation: loading-div-text-animation1 1s ease-in-out;
+}
+
+.loading-div > div:nth-child(3){
+    font-size: 16px;
+    font-family: centuryGothic;
+    letter-spacing: 7px;
+    animation: loading-div-text-animation2 1s ease-in-out;
+}
+
+.loading-div > img:nth-child(5){
+    margin-top: 15px;
+    height: 20px;
+}
+
+.loading-message {
+    margin-top: 15px;
+    color: rgb(100, 100, 100);
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+@keyframes loading-div-text-animation1 {
+    from {
+        letter-spacing: 10px;
+    }
+}
+
+@keyframes loading-div-text-animation2 {
+    from {
+        letter-spacing: 0.1px;
+    }
+}

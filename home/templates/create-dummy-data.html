@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+<style>
+
+.curr-status {
+    color: rgb(143, 72, 184);
+}
+
+div.complete-status {
+    margin: auto;
+    margin-top: 10px;
+    width: calc(100% - 20px);
+    max-width: 900px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    height: 20px;
+    border-radius: 5px;
+}
+
+div.completed {
+    width: 0%;
+    background: rgb(54, 0, 65);
+    height: 20px;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.create-data-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border: 2px solid rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 900px;
+    padding: 100px 50px;
+    text-align: center;
+    display: flex;
+    color: rgb(50, 50, 50);
+    border-radius: 10px;
+}
+
+.create-data-wrapper > * {
+    margin: 20px 0;
+}
+
+.create-data-wrapper .submit-button {
+    background: black;
+    padding: 8px 20px;
+    color: white;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    position: relative;
+}
+
+.create-data-wrapper .submit-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.danger-note {
+    color: red;
+    margin: auto;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+
+
+</style>
+    <script src="{% static 'scripts/base.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            hide_loading();
+
+            $('.submit-button').click(function(){
+                var createRandomVoters = $('#createRandomVoters').is(':checked');
+                var createPoliticianParties = $('#createPoliticianParties').is(':checked');
+                var castRandomVote = $('#castRandomVote').is(':checked');
+
+                if(castRandomVote) {
+                    if(createPoliticianParties && createRandomVoters){}
+                    else {
+                        alert('Votes can not be casted without complete database!');
+                        return;
+                    }
+                }
+
+                startCreatingDummyData({
+                    'createRandomVoters':createRandomVoters,
+                    'createPoliticianParties':createPoliticianParties,
+                    'castRandomVote':castRandomVote
+                });
+            });
+
+            function startCreatingDummyData(to_do) {
+
+                html = `
+                    <div class="curr-status">Creating Dummy Data.</div>
+                    <div class="complete-status">
+                        <div class="completed"></div>
+                    </div>
+                `
+                show_loading('Creating Dummy Data...<br>'+html);
+                showAlert('Creating Dummy Data.', 'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
+                $.ajax({
+                    type: "GET",
+                    url: "/create-dummy-data/",
+                    data: to_do,
+                    success: function(data){
+                        if(data.success) {
+                            $('.completed').animate({'width':100+'%'}, {duration: 300});
+                            $('.completed').html(100 +'% completed');
+                            showAlert('Dummy Data has been created.', 'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
+                            $('.curr-status').html('Dummy Data has been created.<br>You are being redirected to home.');
+                            setTimeout(function(){
+                                location.href = '/'
+                            }, 2000);
+                        }
+                        else{
+                            showAlert('Something went wrong.', 'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
+                            $('.curr-status').html('Something went wrong.<br>You are being redirected to home.');
+                            setTimeout(function(){
+                                location.href = '/'
+                            }, 5000);
+                        }
+                    }
+                });
+
+                track_server();
+
+            }
+
+            function track_server(){
+
+                $.ajax({
+                    type: "GET",
+                    url: "/track-server/",
+                    success: function( data ){
+
+                        if(data.progress){
+
+                            $('.curr-status').html(data.status);
+                            $('.completed').animate({'width':data.completed+'%'}, {duration: 300});
+                            $('.completed').html(data.completed +'% completed');
+
+                            setTimeout(function(){
+                                track_server();
+                            }, 500);
+                        }
+                    }
+                });
+            }
+
+        });
+    </script>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="create-data-wrapper">
+    <div>
+        <input type="checkbox" id="createRandomVoters" checked>
+        <span>Create Random Voters</span>
+    </div>
+    <div>
+        <input type="checkbox" id="createPoliticianParties" checked>
+        <span>Create Politician Parties</span>
+    </div>
+    <div>
+        <input type="checkbox" id="castRandomVote" checked>
+        <span>Cast Vote Randomly</span>
+    </div>
+    <div class="submit-button">Create Dummy Data</div>
+    <div class="danger-note">NOTE: All previous data will be deleted. Uncheck all, if you want to only delete old data.</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mine-block.css' %}">
+    
+    <script src="{% static 'scripts/base.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            hide_loading();
+            showAlert('Click on Start Mining button to start mining.', 'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
+        });
+    </script>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="mine-block">
+    <div>
+        <span>{{ data }}</span> vote transactions to be sealed.
+    </div>
+    <div class="start-mining-button">
+        Start Mining
+    </div>
+</div>
+
+<div class="mine-block-status">
+</div>
+
+<script>
+    
+    $('.start-mining-button').click(function(){
+        showAlert('Wait... Mining process is in under progress.', 'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
+        $('.mine-block').hide();
+
+        html = `
+            <div class="curr-status">0 blocks mined.</div>
+            <div class="complete-status">
+                <div class="completed"></div>
+            </div>
+        `
+        $('.completed').css('width', '0%');
+        $('.completed').html('0% completed');
+        show_loading('Please wait, Blocks are being mined.<br>'+html);
+
+        $.ajax({
+            type: "GET",
+            url: "/start-mining/",
+            success: function( data ){
+                showAlert('Mined Block Details are below.', 'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
+                
+                $('.curr-status').html('All blocks mined.');
+                $('.completed').css('width', '100%');
+                $('.completed').html('100% completed');
+
+                setTimeout(hide_loading(), 1000);
+                
+                $('.mine-block-status').html(data.html);
+                $('.mine-block-status').show();
+            }
+        });
+
+        track_server();
+        
+    });
+
+    function track_server(){
+
+        $.ajax({
+            type: "GET",
+            url: "/track-server/",
+            success: function( data ){
+
+                if(data.progress){
+
+                    $('.curr-status').html(data.status);
+                    $('.completed').animate({'width':data.completed+'%'}, {duration: 300});
+                    $('.completed').html(data.completed +'% completed');
+
+                    setTimeout(function(){
+                        track_server();
+                    }, 500);
+                }
+            }
+        });
+    }
+</script>
+
+{% endblock %}

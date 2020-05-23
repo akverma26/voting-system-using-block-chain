@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+<script src="{% static 'scripts/base.js' %}"></script>
+<script src="{% static 'scripts/csrf.js' %}"></script>
+<script src="{% static 'scripts/home.js' %}"></script>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="authentication">
+
+    <span>Enter Your Aadhar Card Number (UIDAI Number)</span>
+    <br>
+    <div class="input-section">
+        <input type="text" placeholder="xxxx xxxx xxxx" class="input-text" id="aadhar" autocomplete="off">
+        <button type="submit" class="submit" onclick="submit_aadhar()">Authenticate</button>
+    </div>
+
+</div>
+
+{% endblock %}

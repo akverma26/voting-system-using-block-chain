@@ -1,0 +1,46 @@
+div.show-result {
+    width: calc(100vw - 20px);
+    max-width: 900px;
+    padding: 20px;
+    margin: auto;
+    border: 2px solid rgb(210, 210, 210);
+    border-radius: 5px;
+}
+
+table.vote-count {
+    width: 100%;
+    border-collapse: collapse;
+    word-wrap: break-word;
+    table-layout: fixed;
+}
+
+table.vote-count tr {
+    border-bottom: 2px solid rgb(210, 210, 210);
+}
+
+table.vote-count tr:last-child {
+    border-bottom: none;
+}
+
+table.vote-count td {
+    text-align: center;
+    padding: 15px;
+    color: rgb(49, 49, 49);
+}
+
+table.vote-count tr td:first-child, table.vote-count tr td:nth-child(2), table.vote-count tr td:last-child {
+    width: 150px;
+}
+
+table.vote-count tr td:first-child {
+    text-align: left;
+}
+
+table.vote-count tr td:last-child {
+    text-align: right;
+}
+
+tr.table-header td {
+    color: #af3700;
+    font-variant: small-caps;
+}

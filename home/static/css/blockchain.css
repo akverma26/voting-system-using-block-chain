@@ -1,0 +1,94 @@
+.blocks {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    padding: 20px;
+    border: 2px solid rgb(210, 210, 210);
+    border-radius: 5px;
+}
+
+table.mine-block-result {
+    width: 100%;
+    border-collapse: collapse;
+    word-wrap: break-word;
+    table-layout: fixed;
+}
+
+table.mine-block-result tr {
+    border-bottom: 2px solid rgb(210, 210, 210);
+}
+
+table.mine-block-result tr:last-child {
+    border-bottom: none;
+}
+
+table.mine-block-result td {
+    text-align: center;
+    padding: 15px;
+    color: rgb(49, 49, 49);
+    font-size: 16px;
+}
+
+table.mine-block-result tr td:first-child {
+    width: 100px;
+}
+
+table.mine-block-result tr td:nth-child(5) {
+    width: 100px;
+}
+
+table.mine-block-result tr td:nth-child(6) {
+    width: 200px;
+}
+
+table.mine-block-result tr td:last-child {
+    text-align: right;
+    width: 120px;
+    letter-spacing: 0;
+    font-variant: normal;
+}
+
+.verify-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.verify-button span {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    background: rgba(0, 100, 170);
+    font-weight: bold;
+    padding: 3px 5px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+}
+
+.verify-button span:hover {
+    background: rgba(0, 150, 220);
+}
+
+table.mine-block-result tr td:nth-child(2), table.mine-block-result tr td:nth-child(3), table.mine-block-result tr td:nth-child(4) {
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+tr.table-header td {
+    color: #af3700;
+    font-size: 16px;
+    letter-spacing: 2px;
+    font-variant: small-caps;
+}
+
+.block-info-link {
+    padding: 5px 12px;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.block-info-link:hover {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}

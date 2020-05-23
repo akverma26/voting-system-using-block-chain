@@ -1,0 +1,53 @@
+{% load static %}
+
+<div class="party-selection">
+
+    <input class="search-box" placeholder="Search..." type="text" id="search" autocomplete="off">
+
+    <div class="party-list">
+
+        {% for party in parties %}
+
+            <div class="option" id="{{ party.party_id }}">
+                <div class="party-logo">
+                    <img style="width: 80px;" src="{{ party.party_logo }}">
+                </div>
+                <div class="divider"></div>
+                <div class="party-name">
+                    {{ party.party_name }}
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="dialog">
+        <div class="vote-confirmation">
+            <div class="confirm">Confirm ?</div>
+            <img class="confirmation-party-logo">
+            <div class="confirmation-party-name">Congress</div>
+            <textarea id="private-key-input" style="margin-top: 20px;" placeholder="Input private key sent to you at your email-id" rows="5"></textarea>
+            <div class="vote-confirmation-buttons">
+                <a id="final-confirm">Yes, Vote</a>
+                <a id="cancel-confirm">No, Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="all-done">
+    <div class="front">
+        <div class="selected-party">
+                <img class="voted-party-image" src="{% static 'images/logo.png' %}">
+                <div class="final-message">
+                </div>
+        </div>
+        <img class="loading-img" style="margin-top: 50px;" src= "{% static 'images/loading.gif' %}">
+        <div>Please wait... we are processing your priceless vote !</div>
+    </div>
+</div>
+
+<script>
+    $.getScript( "{% static 'scripts/voting.js' %}" );
+</script>

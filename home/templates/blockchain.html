@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blockchain.css' %}">
+
+    <script src="{% static 'scripts/base.js' %}"></script>
+    <script src="{% static 'scripts/blockchain.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            hide_loading();
+            showAlert(
+            'All mined blocks are below. Click on block id to get information about that block.',
+            'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
+        });
+    </script>
+{% endblock %}
+
+{% block main_content %}
+<div class="blocks">
+    <table class="mine-block-result">
+        <tr class="table-header">
+            <td>Block ID</td>
+            <td>Previous Hash</td>
+            <td>Merkle Hash</td>
+            <td>Block Hash</td>
+            <td>Nonce</td>
+            <td>Timestamp</td>
+            <td> <div class="verify-button" title="Click to verify selected Blocks"> <input type="checkbox" onchange="verifySelect(this)"> <span onclick="verifyBlock(this)">Verify</span> </div> </td>
+        </tr>
+
+        {% if blocks %}
+
+        {% for block in blocks %}
+        <tr id="{{ block.id }}">
+            <td> <a class="block-info-link" href="/block-info/?id={{block.id}}"> {{ block.id }} </a> </td>
+            <td title="{{ block.prev_hash }}" style="color: rgb(78, 0, 151);">{{ block.prev_hash }}</td>
+            <td title="{{ block.merkle_hash }}" style="color: rgb(133, 0, 151);">{{ block.merkle_hash }}</td>
+            <td title="{{ block.this_hash }}" style="color: rgb(151, 0, 113);">{{ block.this_hash }}</td>
+            <td>{{ block.nonce }}</td>
+            <td>{{ block.timestamp|date:"Y-m-d" }} {{ block.timestamp|time:"H:i:s" }}</td>
+            <td> <div class="verify-button" title="Click to verify this Block"> <input type="checkbox" onchange="verifySelect(this)"> <span onclick="verifyBlock(this)">Verify</span> </div> </td>
+        </tr>
+        {% endfor %}
+
+        {% else %}
+        <tr>
+            <td colspan="7">No Blocks</td>
+        </tr>
+        {% endif %}
+
+    </table>
+</div>
+
+{% endblock %}
+

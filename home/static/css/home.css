@@ -1,0 +1,55 @@
+.authentication {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.authentication > span {
+    animation: slide-fade-in 1s ease-out;
+    color: #af3700;
+}
+
+.authentication > .input-section {
+    margin: auto;
+    display: flex;
+    margin-top: 10px;
+}
+
+.authentication > .input-section > .input-text{
+    opacity: 0;
+    padding: 5px;
+
+    background: rgba(255, 255, 255, 0.3);
+    color: #af3700;
+    border-color: #ff5100;
+    border-radius: 3px;
+
+    transition: all 0.3s linear;
+    animation: slide-fade-in 1s ease-out 0.2s forwards;
+}
+
+.authentication > .input-section > .input-text:focus,
+.authentication > .input-section > .input-text:hover {
+    box-shadow: 0 0 12px #ff5100;
+    border-color: #ff5100;
+    border-radius: 3px;
+}
+
+.authentication > .input-section > .submit{
+    opacity: 0;
+    background: linear-gradient( #ff5100, #af3700 );
+    color: white;
+    border: none;
+    padding: 8px 40px;
+    border-radius: 3px;
+
+    margin-left: 20px;
+    cursor: pointer;
+
+    transition: all 0.3s linear;
+    animation: slide-fade-in 1s ease-out 0.4s forwards;
+}
+
+.authentication > .input-section > .submit:hover {
+    box-shadow: 0 0 16px #ff5100;
+}

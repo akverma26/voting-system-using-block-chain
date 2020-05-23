@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/block-info.css' %}">
+
+    <script src="{% static 'scripts/base.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            hide_loading();
+            var block_id = {{this_block.id}};
+            showAlert(
+            'Block Information.',
+            'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
+
+            $('.sync-block').click(function(){
+                show_loading('Please wait... we are syncing this block.');
+                    $.ajax({
+
+                        type:"GET",
+                        url: "/sync-block/",
+                        data: {'block-id': block_id},
+                        success: function( data )
+                        {
+                            show_loading('Synchronisation complete. Please wait... while the block is being loaded.');
+                            if(data.success){
+                                location.href = '/block-info/?id='+block_id;
+                            }
+
+                            else {
+                            }
+                        }
+                    });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block main_content %}
+<div class="block-info">
+    <table class="block-info-table">
+        <tr>
+            <td>Block No.</td>
+            <td>{{this_block.id}}</td>
+        </tr>
+        <tr>
+            <td>Previous Hash</td>
+            <td>{{this_block.prev_hash}}</td>
+        </tr>
+        <tr>
+            <td>Block Hash</td>
+            <td>{{this_block.this_hash}}</td>
+        </tr>
+        <tr>
+            <td>Merkle Hash</td>
+            <td>{{this_block.merkle_hash}}</td>
+        </tr>
+        <tr>
+            <td>Nonce</td>
+            <td>{{this_block.nonce}}</td>
+        </tr>
+        <tr>
+            <td>Timestamp</td>
+            <td>{{this_block.timestamp|date:"Y-m-d"}} {{this_block.timestamp|time:"H:i:s"}}</td>
+        </tr>
+        <tr>
+            <td>Confirmations</td>
+            <td>{{confirmed_by}} confirmations</td>
+        </tr>
+    </table>
+</div>
+
+<div class="merkle-root">
+    <span>Recalculated Merkle Root Hash: </span> <span class="hash">{{re_merkle_hash}}</span>
+</div>
+{% if isTampered %}
+<div class="tempered">
+    <div class="tamper-info" style="background: rgb(150,0,0);">Vote transaction(s) in this block is(are) tampered.</div>
+    <div class="sync-block">Sync Block</div>
+</div>
+{% else %}
+<div class="tempered">
+    <div class="tamper-info">All the vote transactions in this block are intact. (Not Tampered)</div>
+</div>
+{% endif %}
+
+<div class="vote-info">
+    <table>
+        <tr>
+            <td>Vote No.</td>
+            <td>Voter ID</td>
+            <td>Timestamp</td>
+            <td>Vote Hash</td>
+        </tr>
+
+        {% for vote, hash in votes %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{vote.uuid}}</td>
+            <td>{{ vote.timestamp|date:"Y-m-d" }} {{ vote.timestamp|time:"H:i:s" }}</td>
+            <td>{{hash}}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+{% endblock %}
+

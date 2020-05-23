@@ -1,0 +1,279 @@
+* {
+    box-sizing: border-box;
+    font-family: calibri;
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+html, body{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+
+    background: url('../images/vote-bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(rgba(255,255,255, 0.95), rgba(245,245,245, 0.95)); 
+    background-attachment: fixed;
+    z-index: -10;
+}
+
+/* -------------------------------------- Header ---------------------- */
+
+.header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 50px;
+    padding: 5px;
+    padding-left: 0;
+    display: flex;
+    width: 100%;
+    background: rgb(245, 245, 245, 0.95);
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+    z-index: 7;
+}
+
+/* --------------------- Header Logo ---------------------- */
+
+.header > .logo{
+    display: flex;
+    min-width: 170px;
+    width: max-content;
+    padding-right: 3px;
+    cursor: pointer;
+}
+
+.header > .logo > .logo-text{
+    margin: auto;
+    color: rgba(0,0,0,0.5);
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* ------------------------- Current status --------------------- */
+
+.status-box {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    flex: 1;
+    border: 1px solid rgba(255, 0, 0, 0);
+    border-left: 1px solid rgba(0,0,0,0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
+    border-radius: 3px;
+    padding: 4px 10px;
+    height: 39px;
+}
+
+.status {
+    margin: auto;
+    display: block;
+    font-size: 16px;
+    line-height: 25px;
+    height: 25px;
+    min-height: 25px;
+    max-width: 100%;
+    padding: 0 8px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+
+    color: rgb(102, 0, 128);
+    background: rgba(201, 136, 255, 0.3);
+    
+    border-radius: 3px;
+
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+/* -------------------Short Details------------------------ */
+
+.short-details {
+    /* display: flex; */
+    display: none;
+    flex-direction: row;
+    padding-left: 3px;
+    max-width: 250px;
+    min-width: 50px;
+    justify-content: flex-end;
+}
+
+.profile-pic {
+    background: rgb(192, 65, 26);
+    background: linear-gradient(rgb(255, 86, 35), rgb(192, 65, 26));
+    height: 40px;
+    width: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: slide-fade-in 1s ease-in-out 0.1s forwards;
+}
+
+.basic-details {
+    margin: auto;
+    background: rgb(192, 65, 26);
+    background: linear-gradient(rgb(255, 86, 35), rgb(192, 65, 26));
+    color: white;
+    font-family: calibri;
+    font-variant: small-caps;
+    padding: 4px;
+    padding-right: 12px;
+    font-size: 16px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    margin-right: -10px;
+    width: 230px;
+    text-align: center;
+
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    opacity: 0;
+    animation: slide-fade-in-shortdetails 1s ease-out 1.5s forwards;
+}
+
+/* -------------------- Navigation Drawer ----------------------- */
+
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 10;
+}
+
+.navigation-drawer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    min-width: 350px;
+    padding: 20px 3px;
+    padding-top: 0;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+}
+
+.drawer-item {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 15px;
+    border-radius: 3px;
+    color: rgb(56, 56, 56);
+    font-size: 17px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.drawer-item:hover {
+    background-color: rgba(219, 100, 255, 0.1);
+}
+
+.drawer-item:nth-child(2):hover {
+    background: none;
+    border-left: none;
+    border-right: none;
+}
+
+.drawer-item-logo {
+    padding-top: 5px;
+    display: block;
+}
+
+.navigation-drawer > .drawer-item > .logo{
+    margin: auto;
+    display: flex;
+}
+
+.navigation-drawer > .drawer-item .logo-text{
+    margin: auto;
+    color: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.drawer-item-back {
+    align-self: flex-end;
+    border: none;
+    padding: 0;
+    margin-top: 5px;
+    margin-right: 10px;
+    padding: 5px;
+    text-align: center;
+    background: rgba(255, 100, 100, 0.1);
+    border: 1px solid rgba(0,0,0,0.1);
+    width: max-content;
+    height: max-content;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.drawer-item-back:hover {
+    background: rgba(255, 100, 100, 0.5);
+}
+
+/* ------------- Main Content Div ------------------- */
+
+.main-content {
+    display: flex;
+    margin: auto;
+    margin-top: 70px;
+    min-height: calc(100% - 70px);
+    padding: 20px;
+    width: 100%;
+}
+
+.view-msg {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    font-size: 12px;
+    color: rgb(80, 80, 80);
+}
+
+/* -------------------------End CSS------------------------------ */
+
+@font-face {
+    font-family: calibri;
+    src: url('../fonts/GoogleSans.woff2');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: centuryGothic;
+    src: url('../fonts/CenturyGothic.ttf');
+    font-weight: bold;
+}

@@ -1,0 +1,124 @@
+<!-- Things to be Done-------------------->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Indian Election</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animations.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/loading.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/candidate-profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/voting.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/final-status.css' %}">
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+    <script src="{% static 'scripts/jquery.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.getScript( "{% static 'scripts/base.js' %}" );
+            $.getScript( "{% static 'scripts/csrf.js' %}" );
+        });
+    </script>
+
+    {% block head %}{% endblock %}
+
+</head>
+
+<body>
+
+    <div class="gradient"></div>
+
+    <!-- -------------------------------------------- Main Content ----------------------------------- -->
+
+    <div class="main-content">
+
+        {% block main_content %}{% endblock %}
+
+    </div>
+
+    <!-- ----------------------------- Header --------------------------------- -->
+
+    <div class="header">
+
+            <div class="logo" title="Navigation Bar">
+                <img style="height: 40px; width: 40px; margin: auto;" src="{% static 'images/logo.png' %}">
+                <div class="logo-text">
+                    <span class="logo-text" style="font-size: 16px;">Indian Election</span>
+                    <span class="logo-text" style="font-size: 12px;">using blockchain</span>
+                </div>
+            </div>
+
+            <div class="status-box">
+                <div class="status" style="color: rgb(102, 0, 128); background: rgba(201, 136, 255, 0.3);">
+                    Indian Election
+                </div>
+            </div>
+
+            <div class="short-details">&nbsp;
+                <div class="basic-details"></div>
+                <img class="profile-pic"></img>
+            </div>
+    </div>
+
+    <!-- ---------------------------------------- Navigation Drawer -------------------------------- -->
+
+    <div class="navigation">
+
+        <div class="navigation-drawer">
+
+            <div class="drawer-item drawer-item-back">← Back</div>
+
+            <a class="drawer-item drawer-item-logo" title="Home" href="/">
+                <div class="logo">
+                    <img style="height: 60px; width: 60px; margin: auto;" src="{% static 'images/logo.png' %}">
+                    <div class="logo-text">
+                        <span class="logo-text" style="font-size: 20px;">Indian Election</span>
+                        <span class="logo-text" style="font-size: 14px;">using blockchain</span>
+                    </div>
+                </div>
+            </a>
+
+            <a class="drawer-item" href="/create-dummy-data">
+                Dummy Data
+            </a>
+
+            <a class="drawer-item" href="/show-result">
+                Show Votes Count
+            </a>
+
+            <a class="drawer-item" href="/mine-block">
+                Mine Blocks
+            </a>
+
+            <a class="drawer-item" href="/blockchain">
+                Block Chain
+            </a>
+
+            <a class="drawer-item" href="/admin">
+                Admin
+            </a>
+        </div>
+    </div>
+
+    <!-- --------------------------------- Loading ------------------------------ -->
+
+    <div class="loading-div">
+        <img src="{% static 'images/logo.png' %}">
+        <div>Indian Election</div>
+        <div>using BlockChain</div>
+        <div id="loading-message" class="loading-message">Please wait...</div>
+        <img class="loading-image" src="{% static 'images/loading.gif' %}">
+    </div>
+
+    <div class="view-msg">Best view in device with minimum resolution: 1280x720</div>
+
+</body>
+</html>

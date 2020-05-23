@@ -1,0 +1,134 @@
+div.mine-block {
+    width: calc(100vw - 40px);
+    min-width: 500px;
+    max-width: 900px;
+    padding: 20px;
+    margin: auto;
+    border: 2px solid rgb(210, 210, 210);
+    border-radius: 5px;
+    text-align: center;
+    color: rgb(53, 53, 53);
+    display: flex;
+    flex-direction: column;
+}
+
+.start-mining-button {
+    margin: auto;
+    margin-top: 30px;
+    background: rgb(78, 33, 121);
+    color: white;
+    max-width: max-content;
+    padding: 5px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.start-mining-button:hover {
+    background: rgb(102, 28, 172);
+    box-shadow: 0 0 8px rgba(79, 33, 121, 0.445);
+}
+
+.mine-block-status {
+    width: calc(100vw - 80px);
+    min-width: 500px;
+    padding: 20px;
+    margin: auto;
+    border: 2px solid rgb(210, 210, 210);
+    border-radius: 5px;
+    text-align: center;
+    color: rgb(53, 53, 53);
+    display: flex;
+    flex-direction: column;
+    display: none;
+}
+
+table.mine-block-result {
+    width: 100%;
+    border-collapse: collapse;
+    word-wrap: break-word;
+    table-layout: fixed;
+}
+
+table.mine-block-result tr {
+    border-bottom: 2px solid rgb(210, 210, 210);
+}
+
+table.mine-block-result tr:last-child {
+    border-bottom: none;
+}
+
+table.mine-block-result td {
+    text-align: center;
+    padding: 15px;
+    color: rgb(49, 49, 49);
+    font-size: 16px;
+}
+
+table.mine-block-result tr td:first-child, table.mine-block-result tr td:last-child {
+    width: 130px;
+}
+
+table.mine-block-result tr td:first-child {
+    text-align: left;
+}
+
+table.mine-block-result tr td:last-child {
+    text-align: right;
+}
+
+table.mine-block-result tr td:nth-child(2), table.mine-block-result tr td:nth-child(3), table.mine-block-result tr td:nth-child(4) {
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+tr.table-header td {
+    color: #af3700;
+    font-size: 16px;
+    letter-spacing: 2px;
+    font-variant: small-caps;
+}
+
+div.time-taken-info {
+    margin-top: 30px;
+    font-size: 18px;
+}
+
+.curr-status {
+    color: rgb(143, 72, 184);
+}
+
+div.complete-status {
+    margin: auto;
+    margin-top: 10px;
+    width: calc(100% - 20px);
+    max-width: 900px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    height: 20px;
+    border-radius: 5px;
+}
+
+div.completed {
+    width: 0%;
+    background: rgb(54, 0, 65);
+    height: 20px;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.block-info-link {
+    padding: 5px 12px;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.block-info-link:hover {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}

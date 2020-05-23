@@ -1,0 +1,235 @@
+.party-selection {
+    margin: 20px auto;
+    border: 2px solid #c0c0c088;
+    border-radius: 5px;
+    opacity: 0;
+    width: 900px;
+
+    animation: fade-in 1s linear forwards;
+}
+
+.search-box {
+    width: 100%;
+    line-height: 40px;
+    font-size: 22px;
+    transform-origin: top;
+    text-align: center;
+    border: none;
+    background: transparent;
+    color: rgb(128, 30, 0);
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #c0c0c088;
+    transform: scaleY(0);
+    animation: expand-height 0.5s linear 0.5s forwards;
+}
+
+.search-box:focus {
+    box-shadow: 0 0 5px rgb(128, 30, 0);
+    border: 1px solid rgb(128, 30, 0);
+}
+
+.party-list {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: calc(100% - 40px);
+    transform: translate(0, -45px);
+    animation: insert-search-box 0.5s linear 0.5s forwards;
+}
+
+.option{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    cursor: pointer;
+
+    padding: 10px 20px;
+
+    border-bottom: 2px solid #c0c0c088;
+}
+
+.option:hover {
+    box-shadow: 0px 0px 16px rgba(25, 150, 0, 0.651);
+    border-color: rgba(25, 150, 0, 0.651);
+}
+
+.party-logo{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 90px;
+
+    padding: 10px 20px;
+
+    border-radius: 5px;
+    transition: all 0.3s linear;
+}
+
+.divider{
+    
+    height: 90%;
+    width: 1px;
+    border-right: 1px solid #dfdfdf;
+    margin: 0 20px;
+}
+
+.party-name {
+
+    font-size: 20px;
+
+    width: 300px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 20px;
+
+    transition: all 0.3s linear;
+}
+
+/* ------------- After choosing one option ----------------------- */
+
+.final-decision {
+    display: flex;
+
+    margin-top: 20px;
+
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    transition: all 0.3s linear;
+}
+
+.final-decision > #vote {
+
+    width: 250px;
+
+    text-align: center;
+
+    font-size: 22px;
+
+    text-decoration: none;
+    background-color:#286e00;
+    background: linear-gradient(#3ba100, #286e00);
+    color: white;
+    border: none;
+    padding: 10px 0px;
+    border-radius: 3px;
+
+    transition: all 0.3s linear;
+}
+
+.final-decision > #vote:hover {
+
+    box-shadow: 0 0 16px #5eff00;
+}
+
+/* --------------------- Pop up Diaog for confirmation ------------------- */
+
+.dialog {
+    background: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: none;
+    padding-top: 70px;
+}
+
+.dialog > .vote-confirmation {
+    margin: auto;
+    padding: 20px 40px;
+    min-height: 50%;
+    min-width: 50%;
+    max-width: calc(100% - 40px);
+    max-height: calc(100% - 90px);
+    box-sizing: border-box;
+    background: #ffffff;
+    background: radial-gradient(circle, rgb(255,255,255) 0%, rgb(200,200,200) 100%); 
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.confirmVoteDialoge-slide-fade-in {
+    animation: confirmVoteDialoge-slide-fade-in 0.7s;
+}
+
+.confirmVoteDialoge-slide-fade-out {
+    animation: confirmVoteDialoge-slide-fade-out 0.7s;
+}
+
+.dialog > .vote-confirmation > .confirm {
+    margin: auto;
+    color: rgb(199, 0, 0);
+    font-size: 40px;
+}
+
+.dialog > .vote-confirmation > .confirmation-party-logo {
+    margin: auto;
+    max-height: 80%;
+    max-width: 80%;
+    min-height: 200px;
+    min-width: 200px;
+    margin-top: 25px;
+}
+
+.dialog > .vote-confirmation > .confirmation-party-name {
+    margin: auto;
+    font-size: 40px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.dialog > .vote-confirmation > textarea {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 20px;
+}
+
+.dialog > .vote-confirmation > .vote-confirmation-buttons {
+    margin: 25px auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.dialog > .vote-confirmation > .vote-confirmation-buttons > #final-confirm,
+.dialog > .vote-confirmation > .vote-confirmation-buttons > #cancel-confirm {
+    margin: auto;
+    background: #047c00;
+    background: linear-gradient(#06b400,#047c00);
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 3px;
+    font-size: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+
+    transition: all 0.3s linear;
+}
+
+.dialog > .vote-confirmation > .vote-confirmation-buttons > #final-confirm:hover {
+
+    box-shadow: 0 0 16px #09ff00;
+}
+
+.dialog > .vote-confirmation > .vote-confirmation-buttons > #cancel-confirm {
+    background: #9e0404;
+    background: linear-gradient(#e20909, #9e0404);
+    margin-left: 25px;
+}
+
+.dialog > .vote-confirmation > .vote-confirmation-buttons > #cancel-confirm:hover {
+    
+    box-shadow: 0 0 16px #ff0000;
+}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show-result.css' %}">
+
+    <script src="{% static 'scripts/base.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            hide_loading();
+            showAlert('Vote count.', 'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
+        });
+    </script>
+{% endblock %}
+
+{% block main_content %}
+
+<div class="show-result">
+
+    <table class="vote-count">
+        <tr class="table-header">
+            <td>Sr. No.</td>
+            <td>Party Symbol</td>
+            <td>Party Name</td>
+            <td>Vote Count</td>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>{{ result.sr }}</td>
+            <td><img style="width: 60px;" src="{{ result.party_symbol }}"></td>
+            <td>{{ result.party_name }}</td>
+            <td>{{ result.vote_count }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+{% endblock %}
+
