@@ -34,12 +34,6 @@ send_email_private_key(request.session['email-id'], private_key)
 
 6. Locate the URL provided in the terminal and access that. by default it is [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
-7. Server Admin credentials:
-
-   Username: `voting`
-
-   Password: `4042602`
-
 
 
 ## References

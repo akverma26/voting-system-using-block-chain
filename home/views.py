@@ -24,7 +24,7 @@ def home(request):
 # --------------- Authentication -------------------
 def authentication(request):
 
-    aadhar_no = request.POST.get('aadhar_no')
+    aadhar_no = request.GET.get('aadhar_no')
 
     details = {'success': False}
     
@@ -51,7 +51,7 @@ def authentication(request):
 
 # --------- Send otp for email verfication -----------
 def send_otp(request):
-    email_input = request.POST.get('email-id')
+    email_input = request.GET.get('email-id')
 
     # [success, result] = send_email_otp(email_input)
     [success, result] = [True, '0']
@@ -69,7 +69,7 @@ def send_otp(request):
 # -------- Verify email with provided otp ----------
 def verify_otp(request):
 
-    otp_input = request.POST.get('otp-input')
+    otp_input = request.GET.get('otp-input')
     json = {'success': False}
     if otp_input == request.session['otp']:
         voter = Voters.objects.get(uuid = request.session['uuid'])
@@ -110,10 +110,10 @@ def create_vote(request):
 
     uuid = request.session['uuid']
 
-    private_key = request.POST.get('private-key')
+    private_key = request.GET.get('private-key')
     public_key = request.session['public-key']
 
-    selected_party_id = request.POST.get('selected-party-id')
+    selected_party_id = request.GET.get('selected-party-id')
 
     curr = timezone.now()
 

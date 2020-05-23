@@ -59,7 +59,7 @@ $(document).ready(function(){
 
             $.ajax(
                 {
-                    type:'POST',
+                    type:'GET',
                     url: '/send-otp/',
                     data: {'email-id': $('#email-input').val()},
                     success: function(data){
@@ -102,7 +102,7 @@ $(document).ready(function(){
 
         $.ajax(
             {
-                type:'POST',
+                type:'GET',
                 url: '/verify-otp/',
                 data: {'otp-input': $('#otp-input').val()},
                 success: function(data){
@@ -153,7 +153,7 @@ $(document).ready(function(){
 
         $.ajax(
             {
-                type:'POST',
+                type:'GET',
                 url: '/get-parties/',
                 data: 'None',
                 success: function(data){
