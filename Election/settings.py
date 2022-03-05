@@ -11,9 +11,16 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import yaml
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+CONFIG_FILE_PATH = os.path.join(BASE_DIR, "conf.yml")
+
+
+with open(CONFIG_FILE_PATH, 'r') as config_file:
+    CONFIG = yaml.safe_load(config_file)
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,9 +30,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'lj1st@6jhyeht1-0((6#be^&evq(y7t6%8flk26q)1t@pu+hph'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = CONFIG.get('ENVIRONMENT') != 'PRODUCTION'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = CONFIG['ALLOWED_HOSTS'] if CONFIG.get('ALLOWED_HOSTS') else []
+
+# When defining a model, if no field in a model is defined with primary_key=True an implicit primary key is added.
+# https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 
 # Application definition
@@ -120,10 +131,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-EMAIL_ADDRESS = ''
-EMAIL_PASSWORD = ''
-TRANSACTIONS_PER_BLOCK = 1
+# ============= Project Configurations ==================
 
-# PUZZLE
-PUZZLE = '000'
+# GMail API Config
+
+EMAIL_ADDRESS = CONFIG['GMAIL_API']['AUTH_EMAIL_ADDRESS']
+EMAIL_PASSWORD = CONFIG['GMAIL_API']['AUTH_EMAIL_PASSWORD']
+ALLOW_EMAIL_SENDING = CONFIG['GMAIL_API']['ALLOW_EMAIL_SENDING']
+
+# Blockchain Mining Configs
+
+TRANSACTIONS_PER_BLOCK = CONFIG['BLOCKCHAIN_CONFIG']['TRANSACTIONS_PER_BLOCK']
+PUZZLE = CONFIG['BLOCKCHAIN_CONFIG']['PUZZLE']
 PLENGTH = len(PUZZLE)

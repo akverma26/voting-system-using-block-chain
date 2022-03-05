@@ -45,7 +45,7 @@
         show_loading('Please wait, Blocks are being mined.<br>'+html);
 
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "/start-mining/",
             success: function( data ){
                 showAlert('Mined Block Details are below.', 'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
@@ -68,7 +68,7 @@
     function track_server(){
 
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: "/track-server/",
             success: function( data ){
 

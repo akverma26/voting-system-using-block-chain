@@ -24,7 +24,7 @@ def home(request):
 # --------------- Authentication -------------------
 def authentication(request):
 
-    aadhar_no = request.GET.get('aadhar_no')
+    aadhar_no = request.POST.get('aadhar_no')
 
     details = {'success': False}
     
@@ -51,10 +51,12 @@ def authentication(request):
 
 # --------- Send otp for email verfication -----------
 def send_otp(request):
-    email_input = request.GET.get('email-id')
+    email_input = request.POST.get('email-id')
 
-    # [success, result] = send_email_otp(email_input)
-    [success, result] = [True, '0']
+    if settings.ALLOW_EMAIL_SENDING:
+        [success, result] = send_email_otp(email_input)
+    else:
+        [success, result] = [True, '0']
 
     json = {'success': success}
     if success:
@@ -69,7 +71,7 @@ def send_otp(request):
 # -------- Verify email with provided otp ----------
 def verify_otp(request):
 
-    otp_input = request.GET.get('otp-input')
+    otp_input = request.POST.get('otp-input')
     json = {'success': False}
     if otp_input == request.session['otp']:
         voter = Voters.objects.get(uuid = request.session['uuid'])
@@ -88,8 +90,10 @@ def get_parties(request):
 
         private_key, public_key = generate_keys()
 
-        # send_email_private_key(request.session['email-id'], private_key)
-        print(private_key)
+        if settings.ALLOW_EMAIL_SENDING:
+            send_email_private_key(request.session['email-id'], private_key)
+        else:
+            print(private_key)
 
         request.session['public-key'] = public_key
 
@@ -110,10 +114,10 @@ def create_vote(request):
 
     uuid = request.session['uuid']
 
-    private_key = request.GET.get('private-key')
+    private_key = request.POST.get('private-key')
     public_key = request.session['public-key']
 
-    selected_party_id = request.GET.get('selected-party-id')
+    selected_party_id = request.POST.get('selected-party-id')
 
     curr = timezone.now()
 
@@ -141,9 +145,9 @@ def create_vote(request):
 # -------------- create Dummy Data ------------------
 def create_dummy_data(request):
     to_do = {
-        'createRandomVoters': json.loads(request.GET.get('createRandomVoters')) if request.GET.get('createRandomVoters') else None,
-        'createPoliticianParties': json.loads(request.GET.get('createPoliticianParties')) if request.GET.get('createPoliticianParties') else None,
-        'castRandomVote': json.loads(request.GET.get('castRandomVote')) if request.GET.get('castRandomVote') else None,
+        'createRandomVoters': json.loads(request.POST.get('createRandomVoters')) if request.POST.get('createRandomVoters') else None,
+        'createPoliticianParties': json.loads(request.POST.get('createPoliticianParties')) if request.POST.get('createPoliticianParties') else None,
+        'castRandomVote': json.loads(request.POST.get('castRandomVote')) if request.POST.get('castRandomVote') else None,
     }
     if to_do['createRandomVoters'] or to_do['createPoliticianParties'] or to_do['castRandomVote']:
         dummy_data_input(to_do)
@@ -379,10 +383,10 @@ def blockchain(request):
 
 def block_info(request):
     try:
-        block = Block.objects.get(id=request.GET.get('id'))
+        block = Block.objects.get(id=request.POST.get('id'))
         confirmed_by = (Block.objects.all().count() - block.id) + 1
 
-        votes = Vote.objects.filter(block_id=request.GET.get('id'))
+        votes = Vote.objects.filter(block_id=request.POST.get('id'))
         vote_hashes = [SHA3_256.new((f'{vote.uuid}|{vote.vote_party_id}|{vote.timestamp}').encode('utf-8')).hexdigest() for vote in votes]
 
         root = MerkleTools()
@@ -405,7 +409,7 @@ def block_info(request):
 
 def sync_block(request):
     try:
-        block_id = request.GET.get('block-id')
+        block_id = request.POST.get('block-id')
         print(block_id)
         print(Vote.objects.filter(block_id=block_id))
         backup_votes = VoteBackup.objects.filter(block_id=block_id).order_by('timestamp')
@@ -422,7 +426,7 @@ def sync_block(request):
         return JsonResponse({'success': False})
 
 def verify_block(request):
-    selected = request.GET.getlist('selected[]')
+    selected = request.POST.getlist('selected[]')
     context = {}
     for s_block in selected:
         block = Block.objects.get(id=s_block)

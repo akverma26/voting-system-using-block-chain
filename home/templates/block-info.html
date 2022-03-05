@@ -18,7 +18,7 @@
                 show_loading('Please wait... we are syncing this block.');
                     $.ajax({
 
-                        type:"GET",
+                        type:"POST",
                         url: "/sync-block/",
                         data: {'block-id': block_id},
                         success: function( data )

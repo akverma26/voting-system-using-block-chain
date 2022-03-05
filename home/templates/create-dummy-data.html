@@ -120,7 +120,7 @@ div.completed {
                 show_loading('Creating Dummy Data...<br>'+html);
                 showAlert('Creating Dummy Data.', 'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)');
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "/create-dummy-data/",
                     data: to_do,
                     success: function(data){
@@ -150,7 +150,7 @@ div.completed {
             function track_server(){
 
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "/track-server/",
                     success: function( data ){
 

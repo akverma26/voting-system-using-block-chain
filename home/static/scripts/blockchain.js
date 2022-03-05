@@ -85,7 +85,7 @@ function sendBlockVerifyRequest(selected_blocks) {
     
     $.ajax(
         {
-            type:'GET',
+            type:'POST',
             url: '/verify-block/',
             data: {'selected[]': selected_blocks},
             success: function(data){
@@ -121,7 +121,7 @@ function synNow(blocks) {
         var id = blocks;
         $.ajax(
             {
-                type:'GET',
+                type:'POST',
                 url: '/sync-block/',
                 data: {'block-id': id},
                 success: function(data){
