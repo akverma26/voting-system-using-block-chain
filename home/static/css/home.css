@@ -2,20 +2,23 @@
     margin: auto;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
-.authentication > span {
+.authentication>span {
+    margin: auto;
+    margin-bottom: 10px;
     animation: slide-fade-in 1s ease-out;
     color: #af3700;
 }
 
-.authentication > .input-section {
+.authentication>.input-section {
     margin: auto;
     display: flex;
     margin-top: 10px;
 }
 
-.authentication > .input-section > .input-text{
+.authentication>.input-section>.input-text {
     opacity: 0;
     padding: 5px;
 
@@ -28,16 +31,16 @@
     animation: slide-fade-in 1s ease-out 0.2s forwards;
 }
 
-.authentication > .input-section > .input-text:focus,
-.authentication > .input-section > .input-text:hover {
+.authentication>.input-section>.input-text:focus,
+.authentication>.input-section>.input-text:hover {
     box-shadow: 0 0 12px #ff5100;
     border-color: #ff5100;
     border-radius: 3px;
 }
 
-.authentication > .input-section > .submit{
+.authentication>.input-section>.submit {
     opacity: 0;
-    background: linear-gradient( #ff5100, #af3700 );
+    background: linear-gradient(#ff5100, #af3700);
     color: white;
     border: none;
     padding: 8px 40px;
@@ -50,6 +53,95 @@
     animation: slide-fade-in 1s ease-out 0.4s forwards;
 }
 
-.authentication > .input-section > .submit:hover {
+.authentication>.input-section>.submit:hover {
     box-shadow: 0 0 16px #ff5100;
+}
+
+.covid-msg-container {
+    opacity: 0;
+    margin: auto;
+    margin-bottom: 50px;
+    border-radius: 20px;
+    border-bottom-right-radius: 0;
+    display: flex;
+    flex-direction: column;
+    background: rgb(40, 70, 90);
+    position: relative;
+    padding-bottom: 10px;
+    animation: fade-in-2 2s ease-out 1.5s forwards;
+}
+
+.covid-msg-container>div {
+    display: flex;
+}
+
+.covid-img img {
+    width: 150px;
+}
+
+.covid-msg {
+    margin-left: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cm-1 {
+    color: white;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding-top: 10px;
+}
+
+.cm-2 {
+    color: rgb(0, 255, 255);
+    font-size: 30px;
+    letter-spacing: 30.5px;
+}
+
+.cm-3 {
+    display: flex;
+}
+
+.cm-3a {
+    color: #ff7700;
+    font-size: 60px;
+    letter-spacing: 25px;
+    width: 260px;
+}
+
+.cm-3b {
+    margin-left: 7px;
+    letter-spacing: 6px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 21px;
+}
+
+.covid-links a {
+    font-size: 12px;
+    color: white;
+    border: 1px solid white;
+    padding: 0px 10px;
+    padding-bottom: 2px;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 5px;
+    background: rgb(40, 70, 90);
+}
+
+.covid-links a:hover {
+    filter: invert(1);
+}
+
+@keyframes fade-in-2 {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0.8;
+    }
 }

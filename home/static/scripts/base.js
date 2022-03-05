@@ -101,7 +101,7 @@ $(document).ready(function(){
     $('#aadhar').val('');
     
     // Disable Right Click
-    document.addEventListener('contextmenu', event => event.preventDefault());
+    // document.addEventListener('contextmenu', event => event.preventDefault());
 });
 
 // 'rgba(201, 136, 255, 0.3)', 'rgb(102, 0, 128)' Normal
