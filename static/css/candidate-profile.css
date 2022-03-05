@@ -1,0 +1,188 @@
+.candidate-details-div {
+    margin: auto;
+    /* width: 100%; */
+    min-width: 900px;
+    transition: all 1s linear;
+}
+
+.candidate-details {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    animation: slide-fade-in 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.candidate-photo {
+    margin: auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.details {
+    margin: auto;
+    border-collapse: collapse;
+    width: calc(100% - 20px);
+}
+
+.details-row {
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.details-row:last-child {
+    border: none;
+}
+
+.details td {
+    padding: 10px;
+}
+
+.des {
+    color: rgb(100, 100, 100);
+    font-variant: small-caps;
+    font-size: 14px;
+}
+
+.candidate-details-div > div:last-child {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    opacity: 0;
+    animation: slide-fade-in 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
+}
+
+.vote-now {
+    margin: auto;
+    background: #047c00;
+    background: linear-gradient(#06c200, #058a00);
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 3px;
+    cursor: pointer;
+    width: max-content;
+
+    transition: all 0.3s linear;
+}
+
+.vote-now:hover {
+    box-shadow: 0 0 16px #09ff00;
+}
+
+.button {
+    margin-left: 15px;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    width: max-content;
+}
+
+.button:hover {
+    box-shadow: 0 0 8px #00aeff;
+}
+
+.associated-email-div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto;
+    margin-top: 20px;
+    background: linear-gradient(90deg, rgba(225, 0, 255, 0.9),rgba(0, 47, 255, 0.9));
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 3px;
+    opacity: 0;
+    animation: slide-fade-in 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+}
+.associated-email-div * {
+    color: rgb(255, 255, 255);
+}
+
+.associated-email-div span {
+    font-size: 14px;
+}
+
+#change-email, #send-otp {
+    font-size: 14px;
+}
+
+.email-input {
+    background: transparent;
+    border: none;
+}
+
+.email-input-div {
+    display: flex;
+    justify-content: center;
+}
+
+.email-alert-msg {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+}
+
+.email-alert-msg-slide-fade-in {
+    display: block;
+    opacity: 0;
+    animation: slide-fade-in 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+}
+
+#verified-badge {
+    width: 24px;
+    height: 24px;
+    display: none;
+    margin-left: 5px;
+}
+
+div.otp-verification {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 50px);
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+div.otp-div {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+}
+
+div.otp-div * {
+    margin: auto 10px;
+    font-size: 16px;
+}
+
+div.otp-div .button {
+    background: black;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.3); 
+}
+
+.hide {
+    display: none;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.5;
+}

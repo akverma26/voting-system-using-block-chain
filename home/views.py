@@ -24,10 +24,10 @@ def home(request):
 # --------------- Authentication -------------------
 def authentication(request):
 
-    aadhar_no = request.POST.get('aadhar_no')
+    aadhar_no = request.GET.get('aadhar_no')
 
     details = {'success': False}
-    
+
     try:
         voter = Voters.objects.get(uuid = aadhar_no)
         request.session['uuid'] = aadhar_no
@@ -51,10 +51,10 @@ def authentication(request):
 
 # --------- Send otp for email verfication -----------
 def send_otp(request):
-    email_input = request.POST.get('email-id')
+    email_input = request.GET.get('email-id')
 
-    # [success, result] = send_email_otp(email_input)
-    [success, result] = [True, '0']
+    [success, result] = send_email_otp(email_input)
+    # [success, result] = [True, '0']
 
     json = {'success': success}
     if success:
@@ -69,7 +69,7 @@ def send_otp(request):
 # -------- Verify email with provided otp ----------
 def verify_otp(request):
 
-    otp_input = request.POST.get('otp-input')
+    otp_input = request.GET.get('otp-input')
     json = {'success': False}
     if otp_input == request.session['otp']:
         voter = Voters.objects.get(uuid = request.session['uuid'])
@@ -82,14 +82,14 @@ def verify_otp(request):
 
 # --------- On successful email verfication show all parties options ----------
 def get_parties(request):
-    
+
     party_list = {}
     if request.session['email-verified']:
 
         private_key, public_key = generate_keys()
 
-        # send_email_private_key(request.session['email-id'], private_key)
-        print(private_key)
+        send_email_private_key(request.session['email-id'], private_key)
+        # print(private_key)
 
         request.session['public-key'] = public_key
 
@@ -110,15 +110,15 @@ def create_vote(request):
 
     uuid = request.session['uuid']
 
-    private_key = request.POST.get('private-key')
+    private_key = request.GET.get('private-key')
     public_key = request.session['public-key']
 
-    selected_party_id = request.POST.get('selected-party-id')
+    selected_party_id = request.GET.get('selected-party-id')
 
     curr = timezone.now()
 
     ballot = f'{uuid}|{selected_party_id}|{curr.timestamp()}'
-    
+
     status = verify_vote(private_key, public_key, ballot)
     context = {'success': status[0], 'status': status[1]}
 
@@ -131,7 +131,7 @@ def create_vote(request):
             voter.save()
         except Exception as e:
             context['status'] = 'We are not able to save your vote. Please try again. '+str(e)+'.'
-            
+
     html = loader.render_to_string('final-status.html', {
         'ballot': status[2], 'ballot_signature': status[3], 'status': status[1]})
     context['html'] = html
@@ -188,7 +188,7 @@ def create_block():
     mining_info = MiningInfo.objects.all().first()
     prev_hash = mining_info.prev_hash
     curr_block_id = last_block_id = int(mining_info.last_block_id)
-    
+
     non_sealed_votes = Vote.objects.all().filter(block_id=None).order_by('timestamp')
     non_sealed_votes_BACKUP = VoteBackup.objects.all().filter(block_id=None).order_by('timestamp')
 
@@ -198,7 +198,7 @@ def create_block():
 
     # Puzzle requirement: '0' * n (n leading zeros)
     puzzle, pcount = settings.PUZZLE, settings.PLENGTH
-    
+
     time_start = time.time()
 
     result = []
@@ -212,7 +212,7 @@ def create_block():
         # Hence always top 'txn_per_block' transactions belong to one block
         block_transactions = non_sealed_votes[:txn_per_block]
         block_transactions_BACKUP = non_sealed_votes_BACKUP[:txn_per_block]
-        
+
         root = MerkleTools()
         root.add_leaf([f'{tx.uuid}|{tx.vote_party_id}|{tx.timestamp}' for tx in block_transactions], True)
         root.make_tree()
@@ -234,10 +234,10 @@ def create_block():
         result.append({
             'block_id': curr_block_id, 'prev_hash': prev_hash, 'merkle_hash': merkle_h, 'this_hash': h, 'nonce': nonce
         })
-        
+
         # Set this hash as prev hash
         prev_hash = h
-        
+
         # Set block_id to every transaction
         for txn in block_transactions:
             txn.block_id = str(curr_block_id)
@@ -274,7 +274,7 @@ def dummy_data_input(to_do):
     ts_data['progress'] = True
     ts_data['status'] = 'Deleting current Data.'
     ts_data['completed'] = 0
-    
+
     PoliticalParty.objects.all().delete()
     Voters.objects.all().delete()
     Vote.objects.all().delete()
@@ -345,7 +345,7 @@ def dummy_data_input(to_do):
         no_of_voters = 10
         for i in range(1, no_of_voters+1):
             # uuid = ''.join(random.choice(string.digits) for _ in range(12))
-            uuid = i
+            uuid = 123456789000+i
             name = ''.join(random.choice(string.ascii_lowercase + string.ascii_uppercase) for _ in range(12))
             dob = datetime.date(random.randint(1980, 2002), random.randint(1, 12), random.randint(1, 28))
             pincode = ''.join(random.choice(string.digits) for _ in range(6))
@@ -362,10 +362,11 @@ def dummy_data_input(to_do):
         party_ids = list(parties.keys())
         for i in range(1, no_of_voters+1):
             curr_time = timezone.now()
+            uuid = 123456789000+i
             party_id = party_ids[random.randint(0,len(party_ids)-1)]
-            Vote(uuid = i, vote_party_id = party_id, timestamp = curr_time).save()
-            VoteBackup(uuid = i, vote_party_id = party_id, timestamp = curr_time).save()
-            voter = Voters.objects.get(uuid=i)
+            Vote(uuid = uuid, vote_party_id = party_id, timestamp = curr_time).save()
+            VoteBackup(uuid = uuid, vote_party_id = party_id, timestamp = curr_time).save()
+            voter = Voters.objects.get(uuid=uuid)
             voter.vote_done = True
             voter.save()
             ts_data['completed'] = round(i*100/no_of_voters)
@@ -390,7 +391,7 @@ def block_info(request):
         root.make_tree()
         merkle_hash = root.get_merkle_root()
         tampered = block.merkle_hash != merkle_hash
-        
+
         context = {
             'this_block': block,
             'confirmed_by': confirmed_by,

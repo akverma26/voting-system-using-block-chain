@@ -48,7 +48,7 @@ def send_email_private_key(email_to, private_key):
     msg['From'] = EMAIL_ADDRESS
     msg['To'] = email_to
     msg['Subject'] = 'Don\'t reply, PRIVATE KEY for vote casting.'
-    content = 'Paste the Following Private as it is in order to cast your vote.\n\n\n'+ private_key + '\n\n\nNOTE: DON\'T REMOVE -----BEGIN PRIVATE KEY----- AND -----BEGIN PRIVATE KEY-----.\n\nThank you.'
+    content = 'Paste the Following Private Key as it is in order to cast your vote.\n\n\n'+ private_key + '\n\n\nNOTE: DON\'T REMOVE -----BEGIN PRIVATE KEY----- AND -----BEGIN PRIVATE KEY-----.\n\nThank you.'
     msg.set_content(content)
 
     try:
@@ -72,7 +72,7 @@ def verify_vote(private_key, public_key, ballot):
     try:
         signer = DSS.new(ECC.import_key(private_key), 'fips-186-3')
         verifier = DSS.new(ECC.import_key(public_key), 'fips-186-3')
-        
+
         ballot_hash = SHA3_256.new(ballot.encode())
 
         ballot_signature = signer.sign(ballot_hash)

@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'lj1st@6jhyeht1-0((6#be^&evq(y7t6%8flk26q)1t@pu+hph'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -120,10 +120,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-EMAIL_ADDRESS = ''
-EMAIL_PASSWORD = ''
+EMAIL_ADDRESS = 'akvindian26@gmail.com'
+EMAIL_PASSWORD = 'bqmrvpvpsvuahlor'
 TRANSACTIONS_PER_BLOCK = 1
 
 # PUZZLE
 PUZZLE = '000'
 PLENGTH = len(PUZZLE)
+
+STATIC_ROOT = '/home/vote/Voting-System-using-Block-Chain-Technology/static/'
