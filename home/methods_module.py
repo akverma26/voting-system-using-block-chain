@@ -48,7 +48,7 @@ def send_email_private_key(email_to, private_key):
     msg['From'] = EMAIL_ADDRESS
     msg['To'] = email_to
     msg['Subject'] = 'Don\'t reply, PRIVATE KEY for vote casting.'
-    content = 'Paste the Following Private as it is in order to cast your vote.\n\n\n'+ private_key + '\n\n\nNOTE: DON\'T REMOVE -----BEGIN PRIVATE KEY----- AND -----BEGIN PRIVATE KEY-----.\n\nThank you.'
+    content = 'Paste the Following Private Key as it is in order to cast your vote.\n\n\n'+ private_key + '\n\n\nNOTE: DON\'T REMOVE -----BEGIN PRIVATE KEY----- AND -----END PRIVATE KEY-----.\n\nThank you.'
     msg.set_content(content)
 
     try:
