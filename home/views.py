@@ -297,14 +297,14 @@ def dummy_data_input(to_do):
             'bjp': {
                 'party_id': 'bjp',
                 'party_name': 'Bhartiya Janta Party (BJP)',
-                'party_logo': 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Bharatiya_Janata_Party_logo.svg/180px-Bharatiya_Janata_Party_logo.svg.png',
+                'party_logo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Bharatiya_Janata_Party_logo.svg/270px-Bharatiya_Janata_Party_logo.svg.png',
                 'candidate_name': '',
                 'candidate_profile_pic': ''
                 },
             'congress': {
                 'party_id': 'congress',
                 'party_name': 'Indian National Congress',
-                'party_logo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Flag_of_the_Indian_National_Congress.svg/250px-Flag_of_the_Indian_National_Congress.svg.png',
+                'party_logo': 'https://upload.wikimedia.org/wikipedia/commons/a/ad/INC_Logo.png',
                 'candidate_name': '',
                 'candidate_profile_pic': ''
                 },
@@ -384,10 +384,10 @@ def blockchain(request):
 
 def block_info(request):
     try:
-        block = Block.objects.get(id=request.POST.get('id'))
+        block = Block.objects.get(id=request.GET.get('id'))
         confirmed_by = (Block.objects.all().count() - block.id) + 1
 
-        votes = Vote.objects.filter(block_id=request.POST.get('id'))
+        votes = Vote.objects.filter(block_id=request.GET.get('id'))
         vote_hashes = [SHA3_256.new((f'{vote.uuid}|{vote.vote_party_id}|{vote.timestamp}').encode('utf-8')).hexdigest() for vote in votes]
 
         root = MerkleTools()
@@ -403,6 +403,7 @@ def block_info(request):
             're_merkle_hash': merkle_hash,
             'isTampered': tampered,
         }
+        print(context)
         return render(request, 'block-info.html', context)
     except Exception as e:
         print(str(e))

@@ -147,4 +147,3 @@ PLENGTH = len(PUZZLE)
 
 if CONFIG.get('ENVIRONMENT') == 'PRODUCTION':
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-print(STATIC_ROOT)
