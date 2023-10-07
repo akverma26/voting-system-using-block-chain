@@ -128,4 +128,4 @@ TRANSACTIONS_PER_BLOCK = 1
 PUZZLE = '000'
 PLENGTH = len(PUZZLE)
 
-STATIC_ROOT = '/home/vote/Voting-System-using-Block-Chain-Technology/static/'
+STATIC_ROOT = '/home/vote/voting-system-using-block-chain/static/'
