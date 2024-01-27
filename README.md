@@ -2,6 +2,8 @@
 
 A user can cast his vote by visiting this web platform. For web server scripting we have used python based web framework **`Django`**.
 
+#some changes in file
+
 
 
 ## How to run
